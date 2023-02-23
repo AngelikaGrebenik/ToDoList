@@ -28,7 +28,7 @@ function renderTasks() {
     if (tasks.length === 0) {
         const emptyListMessage = document.createElement('div');
         emptyListMessage.innerHTML = '<div id="test-empty">\n' +
-            '        <img id="notification" src="img_1.png">\n' +
+            '        <img id="notification" src="icons/img_1.png">\n' +
             '        <div id="text-note">\n' +
             '            <p id="p1">OOpps......You don’t have any tasks</p>\n' +
             '            <p id="p2">This view will show you all of the tasks that have been notated </p>\n' +
@@ -42,8 +42,8 @@ function renderTasks() {
         const listItem = document.createElement('li');
         const deleteButton = document.createElement('button');
         const completeButton = document.createElement('button');
-        deleteButton.innerHTML = '<img id="bin" src="img_4.png">';
-        completeButton.innerHTML = '<img id="tick" src="img_3.png">';
+        deleteButton.innerHTML = '<img id="bin" src="icons/img_4.png">';
+        completeButton.innerHTML = '<img id="tick" src="icons/img_3.png">';
         deleteButton.onclick = () => deleteTask(index);
         completeButton.onclick = () => completeTask(index);
         if (task.completed) {
