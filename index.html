@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDo</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kodchasan:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+</head>
+<body>
+<header>
+    <div id="upper-case">My ToDo List
+        <img id="logo" src="img.png" alt="vector">
+    </div>
+    <hr>
+    <h2>In Progress:</h2>
+</header>
+<div id="scroll-part">
+    <ul id="task-list"></ul>
+    <h2>Done:</h2>
+    <ul id="completed-tasks"></ul>
+</div>
+<footer>
+    <form>
+        <button id="circle-button" type="button" onclick="addTask()"><img id="plus" src="img_2.png"></button>
+        <input type="text" placeholder="Add new task" id="new-task">
+    </form>
+    <hr>
+    "Never leave that till tomorrow which you can do today," - Benjamin Franklin
+</footer>
+<script src="main.js"></script>
+</body>
+</html>
