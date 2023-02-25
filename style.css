@@ -24,11 +24,15 @@ body {
 header {
     position: fixed;
     width: 100%;
+    height: 105px;
+    background-color: #B5BAD0;
+    z-index: 1;
 }
 
 #scroll-part {
-    padding-top: 155px;
-    padding-bottom: 140px;
+    padding-top: 160px;
+    padding-bottom: 150px;
+    z-index: 2;
 }
 
 footer {
@@ -39,6 +43,10 @@ footer {
     height: 140px;
     width: 100%;
     text-align: center;
+    align-items: center;
+    background-color: #B5BAD0;
+    overflow: hidden;
+    z-index: 1;
 }
 
 hr {
@@ -64,7 +72,7 @@ h2 {
 
 form {
     display: flex;
-    margin: auto;
+    margin:  5px auto;
     padding: 10px;
     background-color: #E0E0E2;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
@@ -150,4 +158,10 @@ li {
     border: 1px #416788;
     display: flex;
     align-items: center;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
