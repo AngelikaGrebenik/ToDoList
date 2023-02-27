@@ -136,7 +136,7 @@ sortMethodSelect.addEventListener('change', () => {
     renderTasks();
     updateLocalStorage();
 });
-
+document.addEventListener('DOMContentLoaded', renderTasks);
 document.addEventListener('DOMContentLoaded', () => {
     loadTasksFromLocalStorage();
 });
