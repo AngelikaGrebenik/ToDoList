@@ -16,16 +16,19 @@ function addTask() {
     tasks.push({name: inputValue, date: new Date(), completed: false});
     renderTasks();
     newTaskInput.value = '';
+    updateLocalStorage();
 }
 
 function deleteTask(index) {
     tasks.splice(index, 1);
     renderTasks();
+    updateLocalStorage();
 }
 
 function completeTask(index) {
     tasks[index].completed = true;
     renderTasks();
+    updateLocalStorage();
 }
 
 function renderTasks() {
@@ -86,7 +89,22 @@ function showNotification(message, element) {
     }, 2000);
 }
 
-document.addEventListener('DOMContentLoaded', renderTasks);
+function updateLocalStorage() {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function loadTasksFromLocalStorage() {
+    const storedTasks = localStorage.getItem('tasks');
+    if (storedTasks) {
+        tasks = JSON.parse(storedTasks);
+        renderTasks();
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadTasksFromLocalStorage();
+});
+
 document.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
         event.preventDefault();
