@@ -184,3 +184,18 @@ ul {
     display: none;
     z-index: 9999;
 }
+
+#sort-by {
+    font-size: 20px;
+    position: absolute;
+    right: 40px;
+}
+
+select {
+    border: none;
+    background-color: #7389AE;
+    text-decoration: underline;
+    font-family: 'Kodchasan', sans-serif;
+    font-weight: bold;
+    color: #304C65;
+}

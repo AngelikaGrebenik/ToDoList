@@ -2,6 +2,7 @@ const taskList = document.getElementById('task-list');
 const completedTasksList = document.getElementById('completed-tasks');
 const newTaskInput = document.getElementById("new-task");
 const notification2 = document.getElementById("notification2");
+const sortMethodSelect = document.getElementById('sort-method');
 
 let tasks = [];
 
@@ -51,6 +52,7 @@ function renderTasks() {
         completeButton.onclick = () => completeTask(index);
 
         if (task.completed) {
+            listItem.appendChild(completeButton);
             completedTasksList.appendChild(listItem);
             listItem.classList.add('completed');
         } else {
@@ -58,7 +60,7 @@ function renderTasks() {
             listItem.appendChild(completeButton);
         }
 
-        const text = `${task.name} (${task.date.toLocaleString()})`;
+        const text = `${task.name} (${new Date(task.date).toLocaleString()})`;
         textElement.appendChild(document.createTextNode(text));
         listItem.appendChild(textElement);
         listItem.appendChild(deleteButton);
@@ -94,21 +96,46 @@ function showNotification(message, element) {
 
 function updateLocalStorage() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem('sortMethod', sortMethodSelect.value);
+}
+
+function sortTasks(sortMethod) {
+    switch (sortMethod) {
+        case 'date-desc':
+            tasks.sort((a, b) => new Date(b.date) - new Date(a.date));
+            break;
+        case 'date-asc':
+            tasks.sort((a, b) => new Date(a.date) - new Date(b.date));
+            break;
+        case 'name-asc':
+            tasks.sort((a, b) => a.name.localeCompare(b.name));
+            break;
+        case 'name-desc':
+            tasks.sort((a, b) => b.name.localeCompare(a.name));
+            break;
+        default:
+            break;
+    }
 }
 
 function loadTasksFromLocalStorage() {
     const storedTasks = localStorage.getItem('tasks');
     if (storedTasks) {
-        tasks = JSON.parse(storedTasks).map(task => {
-            return {
-                name: task.name,
-                date: new Date(task.date),
-                completed: task.completed
-            }
-        });
+        tasks = JSON.parse(storedTasks);
+        const storedSortMethod = localStorage.getItem('sortMethod');
+        if (storedSortMethod) {
+            sortMethodSelect.value = storedSortMethod;
+            sortTasks(storedSortMethod);
+        }
         renderTasks();
     }
 }
+
+sortMethodSelect.addEventListener('change', () => {
+    sortTasks(sortMethodSelect.value);
+    renderTasks();
+    updateLocalStorage();
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     loadTasksFromLocalStorage();
