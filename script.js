@@ -42,6 +42,8 @@ function renderTasks() {
 
     tasks.forEach((task, index) => {
         const listItem = document.createElement('li');
+        const textElement = document.createElement('span');
+        textElement.style.width = "90%";
         const deleteButton = createButton('<img id="bin" src="icons/img_4.png">');
         const completeButton = createButton('<img id="tick" src="icons/img_3.png">');
 
@@ -57,7 +59,8 @@ function renderTasks() {
         }
 
         const text = `${task.name} (${task.date.toLocaleString()})`;
-        listItem.appendChild(document.createTextNode(text));
+        textElement.appendChild(document.createTextNode(text));
+        listItem.appendChild(textElement);
         listItem.appendChild(deleteButton);
     });
 }
@@ -96,7 +99,13 @@ function updateLocalStorage() {
 function loadTasksFromLocalStorage() {
     const storedTasks = localStorage.getItem('tasks');
     if (storedTasks) {
-        tasks = JSON.parse(storedTasks);
+        tasks = JSON.parse(storedTasks).map(task => {
+            return {
+                name: task.name,
+                date: new Date(task.date),
+                completed: task.completed
+            }
+        });
         renderTasks();
     }
 }

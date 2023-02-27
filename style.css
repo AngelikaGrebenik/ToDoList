@@ -93,8 +93,7 @@ form {
     opacity: 50%;
 }
 
-#circle-button,
-button {
+#circle-button, button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -108,8 +107,7 @@ button {
     padding: 8px;
 }
 
-#circle-button:hover,
-button:hover {
+#circle-button:hover, button:hover {
     background-color: #B5BAD0;
     border: 1px solid #304C65;
 }
