@@ -11,6 +11,7 @@
 <header>
     <div id="upper-case">My ToDo List
         <img id="logo" src="icons/img.png" alt="vector">
+        <input type="text" placeholder="Search tasks" id="search-tasks" autocomplete="off">
         <div id="sort-by">
             <label for="sort-method">Sort by:</label>
             <select id="sort-method">
@@ -32,7 +33,7 @@
 <footer>
     <form>
         <button id="circle-button" type="button" onclick="addTask()"><img id="plus" src="icons/img_2.png"></button>
-        <input type="text" placeholder="Add new task" id="new-task" autocomplete="off">
+        <input type="text" placeholder="Add new task" id="new-task" autocomplete="off" onkeydown="if(event.keyCode === 13) submitForm();" />
         <div id="notification2"></div>
     </form>
     <hr>

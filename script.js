@@ -3,6 +3,7 @@ const completedTasksList = document.getElementById('completed-tasks');
 const newTaskInput = document.getElementById("new-task");
 const notification2 = document.getElementById("notification2");
 const sortMethodSelect = document.getElementById('sort-method');
+const searchInput = document.getElementById('search-tasks');
 
 let tasks = [];
 
@@ -41,7 +42,15 @@ function renderTasks() {
         return;
     }
 
-    tasks.forEach((task, index) => {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    const filteredTasks = tasks.filter(task => task.name.toLowerCase().includes(searchTerm));
+
+    if (filteredTasks.length === 0) {
+        taskList.appendChild(createEmptyListMessage());
+        return;
+    }
+
+    filteredTasks.forEach((task, index) => {
         const listItem = document.createElement('li');
         const textElement = document.createElement('span');
         textElement.style.width = "90%";
@@ -66,6 +75,8 @@ function renderTasks() {
         listItem.appendChild(deleteButton);
     });
 }
+
+searchInput.addEventListener('input', () => renderTasks());
 
 function createButton(html) {
     const button = document.createElement('button');
@@ -118,6 +129,15 @@ function sortTasks(sortMethod) {
     }
 }
 
+function submitForm(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        addTask();
+    }
+}
+
+newTaskInput.addEventListener('keydown', submitForm);
+
 function loadTasksFromLocalStorage() {
     const storedTasks = localStorage.getItem('tasks');
     if (storedTasks) {
@@ -136,6 +156,7 @@ sortMethodSelect.addEventListener('change', () => {
     renderTasks();
     updateLocalStorage();
 });
+
 document.addEventListener('DOMContentLoaded', renderTasks);
 document.addEventListener('DOMContentLoaded', () => {
     loadTasksFromLocalStorage();
