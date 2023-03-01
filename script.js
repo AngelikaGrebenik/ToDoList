@@ -7,9 +7,10 @@ const searchInput = document.getElementById('search-tasks');
 
 let tasks = [];
 
+// Функция добавления задачи
 function addTask() {
     const inputValue = newTaskInput.value.trim();
-
+// Если поле ввода пустое, выводится уведомление об ошибке
     if (inputValue === "") {
         showNotification("You have not entered a task!", notification2);
         return;
@@ -21,22 +22,26 @@ function addTask() {
     updateLocalStorage();
 }
 
+// Функция удаления задачи
 function deleteTask(index) {
     tasks.splice(index, 1);
     renderTasks();
     updateLocalStorage();
 }
 
+// Функция статуса выполнения задачи
 function completeTask(index) {
     tasks[index].completed = true;
     renderTasks();
     updateLocalStorage();
 }
 
+// Функция отображения задач
 function renderTasks() {
     taskList.innerHTML = '';
     completedTasksList.innerHTML = '';
 
+    // Если нет задач, выводится уведомление
     if (tasks.length === 0) {
         taskList.appendChild(createEmptyListMessage());
         return;
@@ -45,6 +50,7 @@ function renderTasks() {
     const searchTerm = searchInput.value.trim().toLowerCase();
     const filteredTasks = tasks.filter(task => task.name.toLowerCase().includes(searchTerm));
 
+    // Если задачи по выбраному фильтру не найдены, выводится уведомление
     if (filteredTasks.length === 0) {
         taskList.appendChild(createEmptyListMessage());
         return;
@@ -76,14 +82,17 @@ function renderTasks() {
     });
 }
 
+// Обработчик изменения поля поиска
 searchInput.addEventListener('input', () => renderTasks());
 
+// Функция создания кнопки
 function createButton(html) {
     const button = document.createElement('button');
     button.innerHTML = html;
     return button;
 }
 
+// Функция создания сообщения о пустом списке задач
 function createEmptyListMessage() {
     const div = document.createElement('div');
     div.id = 'test-empty';
@@ -97,6 +106,7 @@ function createEmptyListMessage() {
     return div;
 }
 
+// Функция вывода временного уведомления при попытке отправить пустую задачу
 function showNotification(message, element) {
     element.innerText = message;
     element.style.display = "block";
@@ -105,11 +115,13 @@ function showNotification(message, element) {
     }, 2000);
 }
 
+// Функция обновления хранилища
 function updateLocalStorage() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
     localStorage.setItem('sortMethod', sortMethodSelect.value);
 }
 
+// Функция сортировки заданий в зависимости от выбраного типа
 function sortTasks(sortMethod) {
     switch (sortMethod) {
         case 'date-desc':
@@ -129,6 +141,7 @@ function sortTasks(sortMethod) {
     }
 }
 
+// Функция отправки формы через Enter
 function submitForm(event) {
     if (event.keyCode === 13) {
         event.preventDefault();
@@ -138,6 +151,7 @@ function submitForm(event) {
 
 newTaskInput.addEventListener('keydown', submitForm);
 
+// Функция загрузки заданий из хранилища
 function loadTasksFromLocalStorage() {
     const storedTasks = localStorage.getItem('tasks');
     if (storedTasks) {
